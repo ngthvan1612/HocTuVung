@@ -19,6 +19,7 @@ namespace HocTuVung
     {
         public ObservableCollection<Unit> ListUnit = new ObservableCollection<Unit>();
         public ObservableCollection<Vocab> ListVocab = new ObservableCollection<Vocab>();
+        private gTTS.gTTS gtts = new gTTS.gTTS();
 
         public frmModifyVocab()
         {
@@ -53,7 +54,12 @@ namespace HocTuVung
                 dlg.Owner = this;
                 if (dlg.ShowDialog() == true)
                 {
-                    var result = viewModel.Create(unit.Id, dlg.English, dlg.Vietnam);
+                    //Create audio
+                    var base64 = gtts.GetAudio(dlg.English);
+                    //Ok
+
+                    var result = viewModel.Create(unit.Id, dlg.English, dlg.Vietnam, base64);
+
                     if (result is null)
                     {
                         this.RefreshListVocab();

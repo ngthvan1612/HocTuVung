@@ -102,13 +102,13 @@ namespace HocTuVung.ViewModels
             return units;
         }
 
-        public object Create(int unit_id, string english, string vietnam)
+        public object Create(int unit_id, string english, string vietnam, string audio)
         {
             using (TuVungContext context = new TuVungContext())
             {
                 try
                 {
-                    context.Vocabs.Add(new Vocab() { English = english, Vietnam = vietnam, UnitId = unit_id });
+                    context.Vocabs.Add(new Vocab() { English = english, Vietnam = vietnam, UnitId = unit_id, Audio = audio });
                     context.SaveChanges();
                 }
                 catch

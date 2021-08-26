@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Media;
 
 namespace HocTuVung.Learning
 {
     using Models;
+    using System.IO;
     using System.Windows;
 
     public enum LearningType
@@ -86,7 +87,6 @@ namespace HocTuVung.Learning
                         AcceptAnswer++;
                         return true;
                     }
-                    break;
                 case LearningType.EngToVie:
                     {
                         string tmp_answer = answer.Trim().ToLower();
@@ -96,7 +96,6 @@ namespace HocTuVung.Learning
                         AcceptAnswer++;
                         return true;
                     }
-                    break;
             }
             return true;
         }
@@ -114,6 +113,20 @@ namespace HocTuVung.Learning
                 }
             }
             return "";
+        }
+
+        public void PlayAudio()
+        {
+            if (this.HasMoreVocab())
+            {
+                try
+                {
+                    SoundPlayer player = new SoundPlayer();
+                    player.Stream = new MemoryStream(Convert.FromBase64String(this.VocabQueue.Peek().Audio));
+                    player.PlaySync();
+                }
+                catch { }
+            }
         }
 
         public string GetPercent()

@@ -102,6 +102,7 @@ namespace HocTuVung
                 {
                     if (learningAlgorithm.CheckAnswer(tbAnswer.Text))
                     {
+                        learningAlgorithm.PlayAudio();
                         learningAlgorithm.Next();
                         tbAnswer.Text = "";
                         tbQuestion.Text = string.Format("Question: {0}\n", learningAlgorithm.GetPercent()) + learningAlgorithm.CurrentQuestion();
