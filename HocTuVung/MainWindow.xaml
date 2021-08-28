@@ -28,12 +28,12 @@
                     x:Name="btnListVocab"
                     Click="btnListVocab_Click"
                     Content="Danh sách từ vựng"/>
-                <Button
+                <!--<Button
                     Style="{StaticResource RoundButton}"
                     Content="Cài đặt"/>
                 <Button
                     Style="{StaticResource RoundButton}"
-                    Content="Hỗ trợ"/>
+                    Content="Hỗ trợ"/>-->
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">

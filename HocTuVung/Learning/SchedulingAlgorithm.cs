@@ -115,6 +115,21 @@ namespace HocTuVung.Learning
             return "";
         }
 
+        public string CurrentAnswer()
+        {
+            if (this.HasMoreVocab())
+            {
+                switch (this.LearningType)
+                {
+                    case LearningType.EngToVie:
+                        return this.VocabQueue.Peek().Vietnam;
+                    case LearningType.VieToEng:
+                        return this.VocabQueue.Peek().English;
+                }
+            }
+            return "";
+        }
+
         public void PlayAudio()
         {
             if (this.HasMoreVocab())

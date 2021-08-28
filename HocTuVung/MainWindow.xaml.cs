@@ -18,6 +18,8 @@ namespace HocTuVung
         public event PropertyChangedEventHandler PropertyChanged;
         private SchedulingAlgorithm learningAlgorithm = new SchedulingAlgorithm();
 
+        private int WRONG = 0;
+
         private bool _isLearning = false;
         public bool IsLearning
         {
@@ -75,6 +77,7 @@ namespace HocTuVung
                 learningAlgorithm.BuildQueue(vocabs, frm.Repeat);
                 IsLearning = true;
                 tbQuestion.Text = string.Format("Question: {0}\n", learningAlgorithm.GetPercent()) + learningAlgorithm.CurrentQuestion();
+                WRONG = 0;
             }
         }
 
@@ -84,6 +87,7 @@ namespace HocTuVung
             {
                 learningAlgorithm.Reset();
                 IsLearning = false;
+                WRONG = 0;
             }
         }
 
@@ -94,11 +98,11 @@ namespace HocTuVung
             frm.ShowDialog();
         }
 
-        private void tbAnswer_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void tbAnswer_KeyDown(object sender, KeyEventArgs e)
         {
             if (IsLearning)
             {
-                if (e.Key == System.Windows.Input.Key.Enter)
+                if (e.Key == Key.Enter)
                 {
                     if (learningAlgorithm.CheckAnswer(tbAnswer.Text))
                     {
@@ -106,10 +110,16 @@ namespace HocTuVung
                         learningAlgorithm.Next();
                         tbAnswer.Text = "";
                         tbQuestion.Text = string.Format("Question: {0}\n", learningAlgorithm.GetPercent()) + learningAlgorithm.CurrentQuestion();
+                        WRONG = 0;
                     }
                     else
                     {
                         MessageBox.Show("Sai!");
+                        WRONG++;
+                        if (WRONG >= 3)
+                        {
+                            MessageBox.Show("Câu trả lời là:\n" + learningAlgorithm.CurrentAnswer());
+                        }
                     }
                 }
             }
